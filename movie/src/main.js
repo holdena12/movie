@@ -11,6 +11,17 @@ function hide(elementId){
 function unHide(elementId){
   document.getElementById(elementId).classList.remove("hide")
 }
+function getStats(totalTP){
+  let stats = document.getElementById("stats")
+  stats.innerHTML = `
+  <div id = "stats">
+  <p> Total tickets purchased: ${totalTP}
+  <button id="goHome">Home</button>`
+  document.getElementById("goHome").addEventListener("click",function(ev){
+    hide("stats")
+    unHide("homePage")
+  })
+}
 function checkout(pricea,pricek,movie){
 
 
@@ -18,7 +29,7 @@ function checkout(pricea,pricek,movie){
   
   let div = document.getElementById("checkoutPage")
   div.innerHTML =` 
-  <div id = "checkoutPage">
+  <div id = "checkoutPage" >
   <div id="${movie}">
   <button id="adultT">Buy for adult: ${pricea}</button>
   <button id="kidT">Buy for a kid: ${pricek}</button>
@@ -31,8 +42,7 @@ function checkout(pricea,pricek,movie){
     unHide("homePage")
     hide("checkoutPage")
   })
-  countTicketsPurchased("adultT","adultTP",movie)
-  countTicketsPurchased("kidT","kidTP",movie)
+
   console.log(kidTP,adultTP,totalTP)
 }
 function countTicketsPurchased(element,typeP, movieP){
@@ -42,7 +52,7 @@ function countTicketsPurchased(element,typeP, movieP){
     totalTP +=1
   })
 }
-document.getElementById
+
 
  
 
@@ -50,7 +60,8 @@ document.getElementById("tmnt").addEventListener("click",function(ev){
   hide("homePage")
   checkout("$15.49","$12.49",mutantTP)
   unHide("checkoutPage")
-  
+  countTicketsPurchased("adultT","adultTP",mutantTP)
+  countTicketsPurchased("kidT","kidTP",mutantTP)
 
 
 
@@ -60,6 +71,8 @@ document.getElementById("smasv").addEventListener("click",function(ev){
   hide("homePage")
   checkout("$14.49","$11.24",spiderTP)
   unHide("checkoutPage")
+  countTicketsPurchased("adultT","adultTP",spiderTP)
+  countTicketsPurchased("kidT","kidTP",spiderTP)
   
 
 
@@ -70,12 +83,22 @@ document.getElementById("tbt").addEventListener("click",function(ev){
   hide("homePage")
   checkout("$10.49","$7.49",trollTP)
   unHide("checkoutPage")
+  countTicketsPurchased("adultT","adultTP",trollTP)
+  countTicketsPurchased("kidT","kidTP",trollTP)
   
 
 
 
 
 })
+document.getElementById("goToStats").addEventListener("click",function(ev){
+  hide("homePage")
+  getStats(totalTP)
+
+
+  
+})
+
 
 
 
