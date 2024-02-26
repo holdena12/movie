@@ -11,16 +11,18 @@ function hide(elementId){
 function unHide(elementId){
   document.getElementById(elementId).classList.remove("hide")
 }
-function getStats(totalTP){
+function getStats(totalTP,kidTP){
   let stats = document.getElementById("stats")
   stats.innerHTML = `
   <div id = "stats">
-  <p> Total tickets purchased: ${totalTP}
+  <p> Total tickets purchased: ${totalTP}</p>
+  <p> Total child tickets purchased: ${kidTP}</p>
   <button id="goHome">Home</button>`
   document.getElementById("goHome").addEventListener("click",function(ev){
     hide("stats")
     unHide("homePage")
   })
+  unHide("stats")
 }
 function checkout(pricea,pricek,movie){
 
