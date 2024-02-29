@@ -1,3 +1,7 @@
 .hide {
   display: none;
 }
+.btn{
+  padding: 10px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
