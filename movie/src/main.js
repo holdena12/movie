@@ -142,22 +142,22 @@ function hide(elementId) {
 function unHide(elementId) {
   document.getElementById(elementId).classList.remove("hide")
 }
-let i =0;
-  
+
+homePage.innerHTML +=`
+<button id = "stats" class = "btn">Stats</button>`
 function getStats(movie) {
   
   let stats = document.createElement("div")
-  if(completeTicketsBought > 0){
-    homePage.innerHTML +=`
-      <button id = "stats" class = "btn">Stats</button>`
-  }
+  
+   
+  
   
   stats.innerHTML+=`
   <ul>${movie.movieTitle} Adult tickets bought: ${movie.adultTicketsBought} Child tickets bought: ${movie.childTicketsBought} total tickets bought ${movie.getTotalTicketsBought()}`
   
   
   hide("homePage")
-  unHide("statsPage")
+  
 
 }
 
