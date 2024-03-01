@@ -54,6 +54,7 @@ for(let movie of movies){
     checkOutPage(movie.childTicketPrice, movie.adultTicketPrice, movie.movieTitle, movie.id);
   });
 }
+
 for (let movie of movies){
   countTickets(movie.id,movie)
 }
