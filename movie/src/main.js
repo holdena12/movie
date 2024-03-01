@@ -54,15 +54,14 @@ for (let movie of json.movies) {
   movies.push(movieObject);
 }
 
-  
+let completeTicketsBought =0;
 
 for (let movie of movies) {
   makeButton(movie);
   
   
 }
-homePage.innerHTML +=`
-      <button id"stats" class = "btn">Stats</button>`
+
 for(let movie of movies){
   document.getElementById(movie.id).addEventListener("click",function(ev){
     checkOutPage(movie);
@@ -73,7 +72,7 @@ for(let movie of movies){
 //for (let movie of movies){
 //  countTickets(movie)
 //}
-
+getCompleteTicketsPurchased()
 
 function checkOutPage(movie) {
   document.getElementById("checkoutPage").innerHTML = `
@@ -90,6 +89,7 @@ function checkOutPage(movie) {
       hide("checkoutPage");
       unHide("homePage");
   });
+ 
 
   addTicketPurchaseListner(movie)
 
@@ -107,8 +107,15 @@ function addTicketPurchaseListner(movie){
     movie.purchaseAdultTicket()
     console.log("adult ticket purchased for " + movie.adultTicketPrice + " total tickets bought = " + movie.getTotalTicketsBought())
   });
-}
+  for (let movie of movies)
+  if (movie.getTotalTicketsBought() > 0){
+    document.getElementById("stats").addEventListener("click", function(ev) {
+      getStats(movie)
 
+    })
+    getStats(movie)
+  }
+}
 function makeButton(movie) {
   //console.log("Made button" + title + ":" + id);
   const homePage = document.getElementById("homePage");
@@ -122,21 +129,38 @@ function getMovie(id) {
     if (movie.id == id) return movie
   }
 }
-
+function getCompleteTicketsPurchased(){
+  
+  for(movie of movies){
+    completeTicketsBought += movie.getTotalTicketsBought() 
+  }
+  return completeTicketsBought
+}
 function hide(elementId) {
   document.getElementById(elementId).classList.add("hide")
 }
 function unHide(elementId) {
   document.getElementById(elementId).classList.remove("hide")
 }
-
-function getStats() {
-  let stats = document.getElementById("stats")
-  stats.innerHTML +=  `
+let i =0;
   
-  `
+function getStats(movie) {
+  
+  let stats = document.createElement("div")
+  if(completeTicketsBought > 0){
+    homePage.innerHTML +=`
+      <button id = "stats" class = "btn">Stats</button>`
+  }
+  
+  stats.innerHTML+=`
+  <ul>${movie.movieTitle} Adult tickets bought: ${movie.adultTicketsBought} Child tickets bought: ${movie.childTicketsBought} total tickets bought ${movie.getTotalTicketsBought()}`
+  
+  
   hide("homePage")
+  unHide("statsPage")
+
 }
+
 
 
 
