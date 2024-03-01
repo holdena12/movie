@@ -24,7 +24,7 @@ class Movie {
   purchaseAdultTicket() {
     this.adultTicketsBought++
   }
-
+  
   constructor(
     adultTicketPrice,
     childTicketPrice,
@@ -48,16 +48,14 @@ for (let movie of json.movies) {
     movie.adultPrice,
     movie.childPrice,
     movie.title,
-    movie.id
+    movie.id,
+    
   );
   movies.push(movieObject);
 }
-for(let movie of movies){
-  if(movie.getTotalTicketsBought()>0){
-    getStats(movie)
-  }
+
   
-}
+
 for (let movie of movies) {
   makeButton(movie);
   
@@ -132,15 +130,12 @@ function unHide(elementId) {
   document.getElementById(elementId).classList.remove("hide")
 }
 
-function getStats(movie) {
-  document.getElementById("stats").addEventListener("click",function(ev){
-    let stats = document.getElementById("stats")
-    stats.innerHTML += `
-      <p> Adult tickets bought for ${movie.movieTitle} is :${movie.adultTicketsBought}</p>
-      <p> Child tickets bought for ${movie.movieTitle} is :${movie.childTicketsBought}</p>
-      <p> Total tickets bought for ${movie.movieTitle} is :${movie.getTotalTicketsBought()}</p>`  
-    })
-    hide(homePage)
+function getStats() {
+  let stats = document.getElementById("stats")
+  stats.innerHTML +=  `
+  
+  `
+  hide("homePage")
 }
 
 
