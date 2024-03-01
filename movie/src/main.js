@@ -7,14 +7,22 @@ class Movie {
   adultTicketsBought = 0;
   childTicketsBought = 0;
 
-  amountSpentAdult() {
+  getAmountSpentAdult() {
     return this.adultTicketPrice * this.adultTicketsBought
   }
-  amountSpentChild() {
+  getAmountSpentChild() {
     return this.childTicketPrice * this.childTicketsBought
   }
-  totalTicketsBought() {
+  getTotalTicketsBought() {
     return this.adultTicketsBought + this.childTicketsBought
+  }
+
+  purchaseChildTicket() {
+    this.childTicketsBought++
+  }
+
+  purchaseAdultTicket() {
+    this.adultTicketsBought++
   }
 
   constructor(
@@ -44,29 +52,39 @@ for (let movie of json.movies) {
   );
   movies.push(movieObject);
 }
-
-for (let movie of movies) {
-  makeButton(movie.movieTitle, movie.id);
+for(let movie of movies){
+  if(movie.getTotalTicketsBought()>0){
+    getStats(movie)
+  }
+  
 }
-
+for (let movie of movies) {
+  makeButton(movie);
+  
+  
+}
+homePage.innerHTML +=`
+      <button id"stats" class = "btn">Stats</button>`
 for(let movie of movies){
   document.getElementById(movie.id).addEventListener("click",function(ev){
-    checkOutPage(movie.childTicketPrice, movie.adultTicketPrice, movie.movieTitle, movie.id);
+    checkOutPage(movie);
   });
 }
 
-for (let movie of movies){
-  countTickets(movie.id,movie)
-}
+// TODO: call this when stats page is loading
+//for (let movie of movies){
+//  countTickets(movie)
+//}
 
 
-function checkOutPage(pricek, pricea, title, id) {
+function checkOutPage(movie) {
   document.getElementById("checkoutPage").innerHTML = `
-      <p>${title}</p>
-      <button id ="${id}k" class="btn">Buy for a kid: ${pricek}</button>
-      <button id = "${id}a" class="btn">Buy for an adult: ${pricea}</button>
+      <p>${movie.movieTitle}</p>
+      <button id ="${movie.id}k" class="btn">Buy for a kid: ${movie.childTicketPrice}</button>
+      <button id = "${movie.id}a" class="btn">Buy for an adult: ${movie.adultTicketPrice}</button>
       <button id ="homeButton" class="btn">Home</button>
   `;
+
   hide("homePage");
   unHide("checkoutPage");
 
@@ -75,28 +93,29 @@ function checkOutPage(pricek, pricea, title, id) {
       unHide("homePage");
   });
 
+  addTicketPurchaseListner(movie)
+
+}
   // Add event listeners for buying tickets
-function countTickets(id,movie){
-  document.getElementById(`${id}k`).addEventListener("click", function(ev) {
-      movie.childTicketsBought ++
-      movie.totalTicketsBought ++
-      console.log(movie.totalTicketsBought)
+function addTicketPurchaseListner(movie){
+  console.log("counting movie with id: " + movie.id)
+  document.getElementById(`${movie.id}k`).addEventListener("click", function(ev) {
+      movie.purchaseChildTicket()
+      console.log("child ticket purchased for " + movie.childTicketPrice + " total tickets bought = " + movie.getTotalTicketsBought())
 
   });
 
-  document.getElementById(`${id}a`).addEventListener("click", function(ev) {
-      movie.adultTicketsBought++
-      movie.totalTicketsBought ++
-      console.log(movie.totalTicketsBought)
-
+  document.getElementById(`${movie.id}a`).addEventListener("click", function(ev) {
+    movie.purchaseAdultTicket()
+    console.log("adult ticket purchased for " + movie.adultTicketPrice + " total tickets bought = " + movie.getTotalTicketsBought())
   });
 }
-}
-function makeButton(title, id) {
-  console.log("Made button" + title + ":" + id);
+
+function makeButton(movie) {
+  //console.log("Made button" + title + ":" + id);
   const homePage = document.getElementById("homePage");
   homePage.innerHTML += `
-      <button class="btn" id="${id}">${title}</button>
+      <button class="btn" id="${movie.id}">${movie.movieTitle}</button>
   `;
 }
 
@@ -113,13 +132,17 @@ function unHide(elementId) {
   document.getElementById(elementId).classList.remove("hide")
 }
 
-function getStats(title,adultTicketBought,childTicketsBought,totalTicketsBought) {
+function getStats(movie) {
+  document.getElementById("stats").addEventListener("click",function(ev){
     let stats = document.getElementById("stats")
     stats.innerHTML += `
-      <p> Adult tickets bought for ${title} is :${adultTicketBought}</p>
-      <p> Child tickets bought for ${title} is :${childTicketsBought}</p>
-      <p> Total tickets bought for ${title} is :${totalTicketsBought}</p>`  
+      <p> Adult tickets bought for ${movie.movieTitle} is :${movie.adultTicketsBought}</p>
+      <p> Child tickets bought for ${movie.movieTitle} is :${movie.childTicketsBought}</p>
+      <p> Total tickets bought for ${movie.movieTitle} is :${movie.getTotalTicketsBought()}</p>`  
+    })
+    hide(homePage)
 }
+
 
 
 
