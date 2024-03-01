@@ -4,4 +4,8 @@
 .btn{
   padding: 10px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+  margin:5px;
+  background-color: #A57548;
+  color: #82DDF0;
 }
