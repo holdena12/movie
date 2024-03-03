@@ -1,3 +1,20 @@
 .hide {
   display: none;
 }
+body{
+  background-color: #C2C5BB;
+}
+.btn{
+  padding: 10px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+  margin:5px;
+  background-color: #499F68;
+  color: #82DDF0;
+  border-radius: 10%;
+  
+}
+button:hover{
+  background-color: #2AF5FF;
+  color:#157A6E;
+}
