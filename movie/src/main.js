@@ -55,6 +55,7 @@ function makeButton(title, id) {
 }
 for (let movie of movies) {
   console.log(movie)
+  
   makeButton(movie.movieTitle, movie.id)
 }
 function getMovie(id) {
