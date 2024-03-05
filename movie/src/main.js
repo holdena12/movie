@@ -61,6 +61,9 @@ for (let movie of movies) {
   
   
 }
+homePage.innerHTML+=`
+<button id ="statsBtn" class="btn">Stats</button>`
+
 
 for(let movie of movies){
   document.getElementById(movie.id).addEventListener("click",function(ev){
@@ -107,13 +110,14 @@ function addTicketPurchaseListner(movie){
     movie.purchaseAdultTicket()
     console.log("adult ticket purchased for " + movie.adultTicketPrice + " total tickets bought = " + movie.getTotalTicketsBought())
   });
-  for (let movie of movies)
-  if (movie.getTotalTicketsBought() > 0){
-    document.getElementById("stats").addEventListener("click", function(ev) {
+  for (let movie of movies){
+    if (movie.getTotalTicketsBought() > 0){
+    document.getElementById("statsBtn").addEventListener("click", function(ev) {
       getStats(movie)
 
     })
-    getStats(movie)
+  }
+
   }
 }
 function makeButton(movie) {
@@ -129,7 +133,7 @@ function getMovie(id) {
     if (movie.id == id) return movie
   }
 }
-function getCompleteTicketsPurchased(){
+function getCompleteTicketsPurchased(movie){
   
   for(movie of movies){
     completeTicketsBought += movie.getTotalTicketsBought() 
@@ -143,20 +147,40 @@ function unHide(elementId) {
   document.getElementById(elementId).classList.remove("hide")
 }
 let i =0;
-  
-function getStats(movie) {
-  
-  let stats = document.createElement("div")
-  if(completeTicketsBought > 0){
-    homePage.innerHTML +=`
-      <button id = "stats" class = "btn">Stats</button>`
-  }
-  
-  stats.innerHTML+=`
-  <ul>${movie.movieTitle} Adult tickets bought: ${movie.adultTicketsBought} Child tickets bought: ${movie.childTicketsBought} total tickets bought ${movie.getTotalTicketsBought()}`
-  
-  
-  hide("homePage")
-  unHide("statsPage")
 
+function getStats(movie) {
+  return `
+      <li>"${movie.movieTitle}" Child tickets bought: ${movie.childTicketsBought} Adult tickets bought: ${movie.adultTicketsBought} Total tickets bought: ${movie.getTotalTicketsBought()}</li>
+  `;
 }
+
+function displayAllStats() {
+  const statsContainer = document.getElementById("stats");
+  statsContainer.innerHTML = "<ul>";
+
+  movies.forEach(movie => {
+    if(movie.getTotalTicketsBought()>0){
+      statsContainer.innerHTML += getStats(movie);
+    }
+  });
+  statsContainer.innerHTML +=`
+  <button id="homeBtn" class = "btn">Home</button>`
+  
+  
+  
+ 
+
+  statsContainer.innerHTML += "</ul>";
+
+  hide("homePage");
+  unHide("stats");
+}
+
+// Add event listener for the Stats button
+document.getElementById("statsBtn").addEventListener("click", function(ev) {
+  displayAllStats();
+  document.getElementById("homeBtn").addEventListener("click",function(ev){
+    unHide("homePage")
+    hide("stats")
+  })
+});
