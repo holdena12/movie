@@ -1,20 +1,43 @@
 .hide {
   display: none;
 }
-body{
-  background-color: #C2C5BB;
+.bold{
+  font-weight: 1000;
+}
+.btn:active {
+  transform: scale(0.95); /* Scale the button down slightly when pressed */
+  background-color: #A5C5DC; /* Button Pressed Color */
+  box-shadow: none; /* Remove box shadow when button is pressed */
+}
+.txt{
+  background-color: #A5C5DC;
 }
 .btn{
   padding: 10px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 12px;
   margin:5px;
-  background-color: #499F68;
-  color: #82DDF0;
-  border-radius: 10%;
+  background-color: #BBD5ED;
+  color:#4C6663  ;
+  border-radius: 5%;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  transition: background-color 0.3s ease;
+  margin: 5px;
   
 }
-button:hover{
-  background-color: #2AF5FF;
+
+
+body{
+  background-color: #CEFDFF;
+}
+.btn:hover{
+  background-color: #92AFD7;
   color:#157A6E;
+  transition: ease-out;
+}
+
+.txt{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 5%;
+  border-style: solid;
 }
