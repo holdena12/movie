@@ -44,18 +44,18 @@ const movies = []
 
 const json = await(await (fetch('./data.json'))).json()
 //console.log(json)
-
+let count = 0
 for (let movie of json.movies) {
   const movieObject = new Movie(
     movie.adultPrice,
     movie.childPrice,
     movie.title,
-    makeRandId()
-
-    
-    
+    movie.id = uuidv4()
   );
   movies.push(movieObject);
+  if (count++ > 1000)  {
+    break;
+  }
 }
 
 
@@ -74,20 +74,21 @@ for(let movie of movies){
   });
 }
 
-// TODO: call this when stats page is loading
-//for (let movie of movies){
-//  countTickets(movie)
-//}
-let movieNumber = 0;
-function makeRandId(){
-  return "movie_"+movieNumber++
-
-  
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+  .replace(/[xy]/g, function (c) {
+      const r = Math.random() * 16 | 0, 
+          v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+  });
 }
+
+
 /**
  * Gets the total amount of money spent in all, also accounts for tax.
  */
 function getTotalMoneySpent(){
+  let totalSpent = 0
   for(let movie of movies){
     totalSpent += movie.getTotalSpent()
   }
