@@ -41,3 +41,15 @@ body{
   border-radius: 5%;
   border-style: solid;
 }
+.statsBtn{
+  padding: 10px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+  margin:5px;
+  background-color: #4C6663;
+  color:#CEFDFF  ;
+  border-radius: 5%;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}

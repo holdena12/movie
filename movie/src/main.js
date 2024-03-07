@@ -56,7 +56,6 @@ for (let movie of json.movies) {
   movies.push(movieObject);
 }
 
-let completeTicketsBought =0;
 
 for (let movie of movies) {
   makeButton(movie);
@@ -64,7 +63,7 @@ for (let movie of movies) {
   
 }
 homePage.innerHTML+=`
-<button id ="statsBtn" class="btn">Stats</button>`
+<button id ="statsBtn" class="statsBtn">Stats</button>`
 
 
 for(let movie of movies){
@@ -86,7 +85,7 @@ function getTotalMoneySpent(){
     totalSpent += movie.getTotalSpent()
   }
   totalSpent = totalSpent * 1.0875
-  Math.round(totalSpent)
+  totalSpent = totalSpent.toFixed(2)
   return totalSpent
 }
 /**
@@ -100,7 +99,7 @@ function goHome(){
  * Sets a timer to send you back to the hoe page after you were at the stats page for one minute.
  */
 function goBackToHomePage(){
-  setTimeout(goHome,6000);
+  setTimeout(goHome,60000);
 }
 /**
  * Created a specilized checkout page for each movie.
@@ -125,21 +124,23 @@ function checkOutPage(movie) {
   addTicketPurchaseListner(movie)
 
 }
-let allChildTicketsBought = 0;
 /**
  * Does the calculations to find how many child tickets were purchased in total.
  */
 function getCompleteChildTicketsBought(){
+  let allChildTicketsBought = 0;
+
   for(let movie of movies){
     allChildTicketsBought += movie.childTicketsBought
   }
   return allChildTicketsBought
 }
-let allAdultTicketsBought = 0;
+
 /**
  * Does the calculations to find how many adult tickets were purchased in total.
  */
 function getCompleteAdultTicketsBought(){
+  let allAdultTicketsBought = 0;
   for(let movie of movies){
     allAdultTicketsBought += movie.adultTicketsBought
   }
@@ -192,7 +193,7 @@ function getMovie(id) {
  * Does the calculations for how many tickets you have bought.
 */ 
 function getCompleteTicketsPurchased(){
-  
+  let completeTicketsBought = 0;
   for(let movie of movies){
     completeTicketsBought += movie.getTotalTicketsBought() 
   }
@@ -239,7 +240,7 @@ function displayAllStats() {
   statsContainer.innerHTML = "<ul>"
   movies.forEach(movie => {
     if(movie.getTotalTicketsBought()>0){
-      statsContainer.innerHTML += getStats(movie)
+      statsContainer.innerHTML = getStats(movie)
     }
   })
   statsContainer.innerHTML +=`
@@ -250,7 +251,7 @@ function displayAllStats() {
   <button id="homeBtn" class = "btn">Home</button>`
 
   
-  //<p>Total amount spent on tickets ${}
+
   
  
 
