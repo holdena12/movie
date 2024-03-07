@@ -50,7 +50,9 @@ for (let movie of json.movies) {
     movie.adultPrice,
     movie.childPrice,
     movie.title,
-    movie.id,
+    makeRandId()
+
+    
     
   );
   movies.push(movieObject);
@@ -76,7 +78,12 @@ for(let movie of movies){
 //for (let movie of movies){
 //  countTickets(movie)
 //}
-let totalSpent = 0;
+let movieNumber = 0;
+function makeRandId(){
+  return "movie_"+movieNumber++
+
+  
+}
 /**
  * Gets the total amount of money spent in all, also accounts for tax.
  */
